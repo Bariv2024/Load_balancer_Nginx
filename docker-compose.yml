@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  nginx-lb:
+    build: 
+      context: .
+      dockerfile: DockerfileLB
+    container_name: nginx-lb
+    ports:
+      - "80:80"
+    depends_on:
+      - web1
+      - web2
+      - web3
+
+  web1:
+    build:
+      context: .
+      dockerfile: DockerfileColor
+      args:
+        COLOR: ${COLOR1}
+    container_name: web1
+    environment:
+      COLOR: ${COLOR1}
+      
+  web2:
+    build:
+      context: .
+      dockerfile: DockerfileColor
+      args:
+        COLOR: ${COLOR2}
+    container_name: web2
+    environment:
+      COLOR: ${COLOR2}
+
+  web3:
+    build:
+      context: .
+      dockerfile: DockerfileColor
+      args:
+        COLOR: ${COLOR3}
+    container_name: web3
+    environment:
+      COLOR: ${COLOR3}
